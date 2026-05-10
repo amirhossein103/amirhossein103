@@ -1,31 +1,35 @@
-name: Generate Stats Images
+name: Generate Stats Images (Debug)
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # Node.js 20
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch stats image
+      - name: Fetch stats image (verbose)
         run: |
-          curl -s "https://github-readme-stats.vercel.app/api?username=amirhossein103&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" -o stats.svg
+          echo ">>> Fetching stats..."
+          curl -v "https://github-readme-stats.vercel.app/api?username=amirhossein103&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" -o stats.svg 2>&1 | tee curl-stats.log
+          echo "HTTP status: $(cat curl-stats.log | grep '< HTTP' | awk '{print $3}')"
+          ls -lh stats.svg
 
-      - name: Fetch top languages image
+      - name: Fetch top languages image (verbose)
         run: |
-          curl -s "https://github-readme-stats.vercel.app/api/top-langs/?username=amirhossein103&layout=compact&theme=tokyonight&hide_border=true" -o langs.svg
+          echo ">>> Fetching top languages..."
+          curl -v "https://github-readme-stats.vercel.app/api/top-langs/?username=amirhossein103&layout=compact&theme=tokyonight&hide_border=true" -o langs.svg 2>&1 | tee curl-langs.log
+          echo "HTTP status: $(cat curl-langs.log | grep '< HTTP' | awk '{print $3}')"
+          ls -lh langs.svg
 
-      - name: Commit & Push
+      - name: Commit & Push (only if successful)
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add stats.svg langs.svg
-          git commit -m "🔄 Auto-update stats images" || echo "No changes to commit"
+          git commit -m "🔄 Update stats images" || echo "No changes"
           git push

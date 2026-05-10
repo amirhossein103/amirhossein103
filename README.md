@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=26&pause=1000&color=2563EB&center=true&vCenter=true&width=435&lines=Hi%2C+I'm+Amirhossein+Lalehei;WordPress,+WooCommerce+Expert;Clean+Architecture+Advocate;Open+Source+Contributor" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=26&pause=1000&color=2563EB&center=true&vCenter=true&width=435&lines=Hi%2C+I'm+Amirhossein+Lalehei;WordPress+%2B+WooCommerce+Expert;Clean+Architecture+Advocate;Open+Source+Contributor" alt="Typing SVG" />
 </p>
 
 <h3 align="center">🚀 Full‑Stack Web Developer | Theme & Plugin Specialist</h3>
@@ -98,8 +98,4 @@
 
 <!--
 **amirhossein103/amirhossein103** is a ✨ special ✨ repository because its `README.md` appears on your GitHub profile.
-<<<<<<< HEAD
 -->
-=======
--->
->>>>>>> f180c62e32e6c1da811e885a3343b7aac8813425
