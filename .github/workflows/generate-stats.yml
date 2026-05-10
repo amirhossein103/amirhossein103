@@ -1,0 +1,42 @@
+name: Generate Stats Images
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate GitHub Stats
+        uses: anuraghazra/github-readme-stats@master
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: amirhossein103
+          SHOW_ICONS: "true"
+          THEME: tokyonight
+          HIDE_BORDER: "true"
+          COUNT_PRIVATE: "true"
+          OUTPUT: stats.svg
+
+      - name: Generate Top Languages
+        uses: anuraghazra/github-readme-stats@master
+        with:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: amirhossein103
+          LAYOUT: compact
+          THEME: tokyonight
+          HIDE_BORDER: "true"
+          OUTPUT: langs.svg
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add stats.svg langs.svg
+          git commit -m "🔄 Auto-update stats images" || echo "No changes to commit"
+          git push
