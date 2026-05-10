@@ -2,8 +2,8 @@ name: Generate Stats Images
 
 on:
   schedule:
-    - cron: '0 0 * * *'
-  workflow_dispatch:
+    - cron: '0 0 * * *'          # runs daily
+  workflow_dispatch:             # allows manual trigger
 
 jobs:
   build:
@@ -12,26 +12,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Generate GitHub Stats
-        uses: anuraghazra/github-readme-stats@master
-        with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USERNAME: amirhossein103
-          SHOW_ICONS: "true"
-          THEME: tokyonight
-          HIDE_BORDER: "true"
-          COUNT_PRIVATE: "true"
-          OUTPUT: stats.svg
+      - name: Fetch stats image
+        run: |
+          curl -s "https://github-readme-stats.vercel.app/api?username=amirhossein103&show_icons=true&theme=tokyonight&hide_border=true&count_private=true" -o stats.svg
 
-      - name: Generate Top Languages
-        uses: anuraghazra/github-readme-stats@master
-        with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          USERNAME: amirhossein103
-          LAYOUT: compact
-          THEME: tokyonight
-          HIDE_BORDER: "true"
-          OUTPUT: langs.svg
+      - name: Fetch top languages image
+        run: |
+          curl -s "https://github-readme-stats.vercel.app/api/top-langs/?username=amirhossein103&layout=compact&theme=tokyonight&hide_border=true" -o langs.svg
 
       - name: Commit & Push
         run: |
